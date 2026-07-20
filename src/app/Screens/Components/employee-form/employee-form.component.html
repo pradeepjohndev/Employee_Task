@@ -1,0 +1,80 @@
+<section>
+    <h1>Employee detail's</h1>
+    <form #empForm="ngForm"
+        (ngSubmit)="isEdit ? updateEmployee() : addEmployee(empForm)">
+        <label for="name">Employee ID:</label>
+        <input
+            type="number"
+            name="id"
+            class="form-input"
+            [(ngModel)]="employee.id"
+            #id="ngModel"
+            required
+            min="1"
+            placeholder="enter employee ID">
+
+        <label for="name">Employee Name:</label>
+        <input
+            type="text"
+            name="name"
+            class="form-input"
+            [(ngModel)]="employee.name"
+            #name="ngModel"
+            required
+            minlength="3"
+            placeholder="enter employee name">
+
+        <label for="name">Employee location:</label>
+        <input
+            type="text"
+            name="location"
+            class="form-input"
+            [(ngModel)]="employee.location"
+            #location="ngModel"
+            required
+            maxlength="50"
+            placeholder="enter location">
+
+        <label for="name">Employee phone:</label>
+        <input
+            type="tel"
+            name="phone"
+            class="form-input"
+            [(ngModel)]="employee.phone"
+            #phone="ngModel"
+            required
+            maxlength="10"
+            placeholder="enter phone number">
+
+        <label for="name">Employee Age:</label>
+        <input
+            type="number"
+            name="age"
+            class="form-input"
+            [(ngModel)]="employee.age"
+            #age="ngModel"
+            required
+            min="18"
+            max="90"
+            oninput="if(this.value.length > 2) this.value = this.value.slice(0, 2);"
+            placeholder="enter age">
+
+        <div>
+            <p *ngIf="id.invalid && (id.touched || empForm.submitted)">ID
+                isreqired</p>
+            <p *ngIf="age.invalid && (age.touched || empForm.submitted)">Age is
+                required</p>
+            <p *ngIf="name.invalid && (name.touched || empForm.submitted)">Name
+                is required</p>
+            <p *ngIf="phone.invalid && (phone.touched || empForm.submitted)">phone
+                is reqired</p>
+            <p *ngIf="location.invalid && (location.touched || empForm.submitted)">location
+                is reqired</p>
+        </div>
+
+        <button type="submit">
+            {{ isEdit ? 'Update Employee' : 'Add Employee' }}
+        </button>
+    </form>
+
+</section>

@@ -1,0 +1,50 @@
+table {
+  width: 100%;
+  border-collapse:collapse;
+}
+
+.heading {
+  background-color: #1e293b;
+}
+
+th {
+  color: #ffffff;
+  font-weight: 600;
+  padding: 14px 16px;
+  font-size: 14px;
+}
+
+td {
+  padding: 12px 16px;
+  color: rgb(0, 0, 0);
+  font-size: 14px;
+  border-bottom: 1px solid #ffffff;
+  text-align: center;
+}
+
+tr:nth-child(even) {
+  background-color: #f4f7fa;
+}
+
+tr:not(.heading):hover {
+  background-color: #eef6ff;
+}
+
+button {
+  padding: 6px 12px;
+  margin-right: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.update-btn{
+    background-color: lightskyblue;
+}
+
+.delete-btn{
+    background-color: rgb(255, 56, 56);
+}
