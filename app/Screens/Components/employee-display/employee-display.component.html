@@ -1,0 +1,24 @@
+
+<section>
+    <table>
+        <tr class="heading">
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Phone</th>
+            <th>Location</th>
+            <th>Options</th>
+        </tr>
+        <tr *ngFor="let employee of result; let i = index">
+            <td>{{ employee.id }}</td>
+            <td> {{ employee.name }}</td>
+            <td>{{ employee.age }}</td>
+            <td>{{employee.phone}}</td>
+            <td>{{employee.location}}</td>
+            <td>
+                <button (click)="updateEmp(i)" class="update-btn">Update</button>
+                <button (click)="deleteEmp(i)" class="delete-btn">delete</button>
+            </td>
+        </tr>
+    </table>
+</section>
