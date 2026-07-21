@@ -1,16 +1,30 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-
+import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class SharedServiceService {
+  employees: any[] = [];
+  private employeeAddedSource = new Subject<any>();
+  employeeAdded$ = this.employeeAddedSource.asObservable();
 
-  private api = 'https://dummyjson.com/users';
   constructor(private http: HttpClient) { }
 
-  getUser(): Observable<any> {
-    return this.http.get<any>(this.api)
+  getUser() {
+    return this.http.get<any>('https://dummyjson.com/users');
+  }
+
+  addEmployee(employee: any) {
+    this.employeeAddedSource.next(employee);
+  }
+
+  setEmployees(employees: any[]) {
+    this.employees = employees;
+  }
+
+  getEmployees() {
+    return this.employees;
   }
 }
