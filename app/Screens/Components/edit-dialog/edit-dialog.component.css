@@ -1,27 +1,46 @@
 .employee-dialog {
-    height: auto;
+  height: 100%dvh;
+  width: auto;
+  max-width: 90vw;
+  box-sizing: border-box;
 }
 
-form {
+.add-mode {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  flex-direction: row;
+  gap: 30px;
+}
+
+.add-mode aside {
+  flex: 1;
+  min-width: 0;
+}
+
+.edit-mode {
+  display: block;
+  width: 100%;
+}
+
+.edit-mode aside {
+  width: 100%;
 }
 
 .form-input {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  width: 100%;
   outline: none;
+  margin: 4px 0 4px 0;
 }
 
 .form-input:focus {
-  border-color: blue;
+  border-color: var(--app-primary-color);
   box-shadow: 0 0 0 2px rgba(0, 0, 255, 0.15);
 }
 
 .errors p {
-  color: red;
+  color: var(--color-red);
   font-size: 10px;
 }
 
@@ -32,6 +51,13 @@ form {
   margin-top: 15px;
 }
 
-.updatebtn{
-    background-color: var(--primary-color);
+.updatebtn {
+  background-color: var(--color-green);
+  color: #ffffff;
 }
+
+.cancelbtn{
+  color: red;
+}
+
+

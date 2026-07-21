@@ -1,86 +1,103 @@
-<table cdk-table [dataSource]="employees">
-    <ng-container cdkColumnDef="id">
-        <th cdk-header-cell *cdkHeaderCellDef>
-            <span>Employee ID</span>
-            <button mat-icon-button [matMenuTriggerFor]="idMenu">
-                <mat-icon>swap_vert</mat-icon>
-            </button>
-        </th>
+<div class="loader-container" *ngIf="isLoading" class="overlay">
+    <mat-spinner diameter="50"></mat-spinner>
+</div>
 
-        <td cdk-cell *cdkCellDef="let employee">
-            {{ employee.id }}
-        </td>
-    </ng-container>
+<div *ngIf="!isLoading">
+    <table cdk-table [dataSource]="employees">
+        <ng-container cdkColumnDef="id">
+            <th cdk-header-cell *cdkHeaderCellDef>
+                <span>Employee ID</span>
+                <button mat-icon-button [matMenuTriggerFor]="idMenu">
+                    <mat-icon>swap_vert</mat-icon>
+                </button>
+            </th>
 
-    <ng-container cdkColumnDef="fullName">
-        <th cdk-header-cell *cdkHeaderCellDef>
-            <span>Full Name</span>
-            <button mat-icon-button
-                [matMenuTriggerFor]="searchName"
-                (menuOpened)="focusSearchInput()">
-                <mat-icon>sort_by_alpha</mat-icon>
-            </button>
-        </th>
-        <td cdk-cell *cdkCellDef="let employee">{{ employee.firstName}}
-            {{employee.lastName }}</td>
-    </ng-container>
+            <td cdk-cell *cdkCellDef="let employee">
+                {{ employee.id }}
+            </td>
+        </ng-container>
 
-    <ng-container cdkColumnDef="age">
-        <th cdk-header-cell *cdkHeaderCellDef>Age</th>
-        <td cdk-cell *cdkCellDef="let employee">{{ employee.age }}</td>
-    </ng-container>
-
-    <ng-container cdkColumnDef="email">
-        <th cdk-header-cell *cdkHeaderCellDef>Email</th>
-        <td cdk-cell *cdkCellDef="let employee">{{ employee.email }}</td>
-    </ng-container>
-
-    <ng-container cdkColumnDef="phone">
-        <th cdk-header-cell *cdkHeaderCellDef>Phone</th>
-        <td cdk-cell *cdkCellDef="let employee">{{ employee.phone }}</td>
-    </ng-container>
-
-    <ng-container cdkColumnDef="country">
-        <th cdk-header-cell *cdkHeaderCellDef>Country</th>
-        <td cdk-cell
-            *cdkCellDef="let employee">{{employee.address.country}}</td>
-    </ng-container>
-
-    <ng-container cdkColumnDef="role">
-        <th cdk-header-cell *cdkHeaderCellDef>Role</th>
-        <td cdk-cell *cdkCellDef="let employee" class="role-cell">
-            <span class="role-text">{{ employee.role }}</span>
-            <span class="action-buttons">
+        <ng-container cdkColumnDef="fullName">
+            <th cdk-header-cell *cdkHeaderCellDef>
+                <span>Full Name</span>
                 <button mat-icon-button
-                    (click)="showDialog(employee)"><mat-icon style="color: blue;">edit</mat-icon></button>
-                <button mat-icon-button (click)="DeleteEmp(employee.id)"><mat-icon style="color: red;">delete</mat-icon></button>
-            </span>
-        </td>
-    </ng-container>
+                    [matMenuTriggerFor]="searchName"
+                    (menuOpened)="focusSearchInput()">
+                    <mat-icon>sort_by_alpha</mat-icon>
+                </button>
+            </th>
+            <td cdk-cell *cdkCellDef="let employee">{{ employee.firstName}}
+                {{employee.lastName }}</td>
+        </ng-container>
 
-    <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
-    <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+        <ng-container cdkColumnDef="age">
+            <th cdk-header-cell *cdkHeaderCellDef>Age</th>
+            <td cdk-cell *cdkCellDef="let employee">{{ employee.age }}</td>
+        </ng-container>
 
-<mat-menu #idMenu="matMenu">
-    <button mat-menu-item (click)="ascending()">
-        <span>Ase</span>
-    </button>
+        <ng-container cdkColumnDef="email">
+            <th cdk-header-cell *cdkHeaderCellDef>Email</th>
+            <td cdk-cell *cdkCellDef="let employee">{{ employee.email }}</td>
+        </ng-container>
 
-    <button mat-menu-item (click)="descending()">
-        <span>Dsec</span>
-    </button>
-</mat-menu>
+        <ng-container cdkColumnDef="phone">
+            <th cdk-header-cell *cdkHeaderCellDef>Phone</th>
+            <td cdk-cell *cdkCellDef="let employee">{{ employee.phone }}</td>
+        </ng-container>
 
-<mat-menu #searchName="matMenu">
-    <div mat-menu-item (click)="$event.stopPropagation()">
-        <input
-            type="text"
-            #menuInput
-            class="search-input"
-            placeholder="Search by name"
-            [(ngModel)]="searchText"
-            (input)="searchByName()" />
-        <mat-icon>search</mat-icon>
+        <ng-container cdkColumnDef="country">
+            <th cdk-header-cell *cdkHeaderCellDef>Country</th>
+            <td cdk-cell
+                *cdkCellDef="let employee">{{employee.address.country}}</td>
+        </ng-container>
+
+        <ng-container cdkColumnDef="role">
+            <th cdk-header-cell *cdkHeaderCellDef>Role</th>
+            <td cdk-cell *cdkCellDef="let employee" class="role-cell">
+                <span class="role-text">{{ employee.role }}</span>
+                <span class="action-buttons">
+                    <button mat-icon-button (click)="showDialog(employee)">
+                        <mat-icon style="color: blue;">edit</mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="DeleteEmp(employee.id)">
+                        <mat-icon style="color: red;">delete</mat-icon>
+                    </button>
+                </span>
+            </td>
+        </ng-container>
+
+        <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+        <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <div *ngIf="noResult" class="no-result">
+        No results found
     </div>
-</mat-menu>
+
+    <mat-menu #idMenu="matMenu">
+        <button mat-menu-item (click)="ascending()">
+            <span>Ase</span>
+        </button>
+
+        <button mat-menu-item (click)="descending()">
+            <span>Dsec</span>
+        </button>
+    </mat-menu>
+
+    <mat-menu #searchName="matMenu">
+        <div mat-menu-item (click)="$event.stopPropagation()"
+            (keydown)="$event.stopPropagation()">
+            <input type="text" #menuInput class="search-input"
+                placeholder="Search by name" [(ngModel)]="searchText"
+                (input)="searchByName()">
+        </div>
+        <button mat-menu-item (click)="reset(); $event.stopPropagation()">
+            <mat-icon>refresh</mat-icon>
+            <span>Reset</span>
+        </button>
+        <button mat-menu-item>
+            <mat-icon>cancel</mat-icon>
+            <span>close</span>
+        </button>
+    </mat-menu>
+</div>

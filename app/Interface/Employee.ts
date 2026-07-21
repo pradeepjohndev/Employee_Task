@@ -15,3 +15,18 @@ export interface Employee_tabel {
     country: string,
     role: string,
 }
+
+export interface Address {
+    country: string;
+}
+
+export interface Employee {
+    id: number | null;
+    firstName: string;
+    lastName: string;
+    age: number | null;
+    email: string;
+    phone: string;
+    role: string;
+    address: Address;
+}

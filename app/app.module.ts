@@ -22,7 +22,13 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { EditDialogComponent } from './Screens/Components/edit-dialog/edit-dialog.component';
+import { MAT_RIPPLE_GLOBAL_OPTIONS, MatRippleModule, RippleGlobalOptions } from '@angular/material/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
+// disabled global ripple config because of container mismatch  
+const globalRippleConfig: RippleGlobalOptions = {
+  disabled: true,
+};
 
 @NgModule({
   declarations: [
@@ -33,7 +39,7 @@ import { EditDialogComponent } from './Screens/Components/edit-dialog/edit-dialo
     NavbarComponent,
     EmployeeTodoComponent,
     FooterComponent,
-    EditDialogComponent
+    EditDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,12 +56,14 @@ import { EditDialogComponent } from './Screens/Components/edit-dialog/edit-dialo
     MatListModule,
     MatIconModule,
     MatToolbarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatRippleModule,
+    MatProgressSpinnerModule
   ],
   entryComponents: [
     EditDialogComponent
   ],
-  providers: [{provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: globalRippleConfig}],
+  providers: [{ provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: globalRippleConfig }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

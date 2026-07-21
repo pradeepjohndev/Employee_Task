@@ -1,6 +1,6 @@
+import { SharedServiceService } from 'src/app/shared/shared-service.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { EmployeeTableComponent } from '../../employee-table/employee-table.component';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -10,18 +10,28 @@ import { NgForm } from '@angular/forms';
 })
 export class EditDialogComponent {
   employee: any;
+  mode: string;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<EditDialogComponent>) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+    private dialogRef: MatDialogRef<EditDialogComponent>,
+    private SharedService: SharedServiceService){
     this.employee = data.employee;
+    this.mode = data.mode;
   }
 
-  updateEmployee(form: NgForm) {
-    if (
-      form.invalid ||
-      this.employee.age < 18 ||
-      this.employee.age > 90
-    ) {
+  submitEmployee(form: NgForm) {
+    if (form.invalid || this.employee.age < 18 || this.employee.age > 90) {
       return;
+    }
+
+    if (this.mode === 'add') {
+      const employees = this.SharedService.getEmployees();
+      const idExists = employees.some(employee => employee.id === this.employee.id);
+
+      if (idExists) {
+        alert('Employee ID already exists');
+        return;
+      }
     }
     this.dialogRef.close(this.employee);
   }
