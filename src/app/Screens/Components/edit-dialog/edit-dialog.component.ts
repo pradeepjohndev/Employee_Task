@@ -13,8 +13,8 @@ export class EditDialogComponent {
   mode: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<EditDialogComponent>,
-    private SharedService: SharedServiceService){
+    public dialogRef: MatDialogRef<EditDialogComponent>,
+    private SharedService: SharedServiceService) {
     this.employee = data.employee;
     this.mode = data.mode;
   }
