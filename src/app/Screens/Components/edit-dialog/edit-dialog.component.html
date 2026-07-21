@@ -1,0 +1,115 @@
+<section class="employee-dialog">
+    <h1>Employee Details</h1>
+    <form #empForm="ngForm" (ngSubmit)="updateEmployee(empForm)">
+        <label>Employee first Name:</label>
+        <input type="text" name="firstName" class="form-input"
+            [(ngModel)]="employee.firstName" #firstName="ngModel" required
+            minlength="3" placeholder="Enter employee name">
+
+        <div class="errors"
+            *ngIf="firstName.invalid && (firstName.touched || empForm.submitted)">
+            <p *ngIf="firstName.errors?.required">
+                Name is required
+            </p>
+
+            <p *ngIf="firstName.errors?.minlength">
+                Name must contain at least 3 characters
+            </p>
+        </div>
+
+        <label>Employee Last Name:
+            <span style="color: rgb(184, 184, 184);">(optional)</span></label>
+        <input type="text" name="lastName" class="form-input"
+            [(ngModel)]="employee.lastName" #lastName="ngModel"
+            placeholder="Enter employee name">
+
+        <label>Employee Phone:</label>
+        <input type="tel" name="phone" class="form-input"
+            [(ngModel)]="employee.phone" #phone="ngModel" required
+            minlength="10" maxlength="10" pattern="[0-9]{10}"
+            placeholder="Enter phone number">
+
+        <div class="errors"
+            *ngIf="phone.invalid && (phone.touched || empForm.submitted)">
+
+            <p *ngIf="phone.errors?.required">
+                Phone number is required
+            </p>
+
+            <p *ngIf="phone.errors?.pattern">
+                Enter a valid 10 digit phone number
+            </p>
+        </div>
+
+        <label>Employee Age:</label>
+        <input type="number" name="age" class="form-input"
+            [(ngModel)]="employee.age" #age="ngModel" required
+            placeholder="Enter age">
+
+        <div
+            class="errors"
+            *ngIf="age.touched || empForm.submitted">
+            <p *ngIf="age.errors?.required">
+                Age is required
+            </p>
+
+            <p
+                *ngIf="employee.age !== null && employee.age !== undefined && employee.age < 18">
+                Age must be at least 18
+            </p>
+
+            <p *ngIf="employee.age > 90">
+                Age cannot be greater than 90
+            </p>
+        </div>
+
+        <label>Employee Email:</label>
+        <input type="email" name="email" class="form-input"
+            [(ngModel)]="employee.email" #email="ngModel" required email
+            placeholder="Enter email">
+
+        <div class="errors"
+            *ngIf="email.invalid && (email.touched || empForm.submitted)">
+            <p *ngIf="email.errors?.required">Email is required</p>
+            <p *ngIf="email.errors?.email">Enter a valid email address</p>
+        </div>
+
+        <label>Employee Country:</label>
+        <input type="text" name="country" class="form-input"
+            [(ngModel)]="employee.address.country" #country="ngModel" required
+            maxlength="50" placeholder="Enter country">
+
+        <div class="errors"
+            *ngIf="country.invalid && (country.touched || empForm.submitted)">
+            <p *ngIf="country.errors?.required">
+                Country is required
+            </p>
+        </div>
+
+        <label>Employee Role:</label>
+        <select name="role" class="form-input" [(ngModel)]="employee.role"
+            #role="ngModel" required>
+            <option value disabled>Select Role</option>
+            <option value="admin">Admin</option>
+            <option value="user">User</option>
+            <option value="moderator">Moderator</option>
+        </select>
+
+        <div class="errors"
+            *ngIf="role.invalid && (role.touched || empForm.submitted)">
+            <p *ngIf="role.errors?.required">
+                Role is required
+            </p>
+        </div>
+
+        <div class="actions">
+            <button type="button" mat-button (click)="dialogRef.close()">
+                Cancel
+            </button>
+
+            <button type="submit" mat-raised-button class="updatebtn">
+                Update Employee
+            </button>
+        </div>
+    </form>
+</section>

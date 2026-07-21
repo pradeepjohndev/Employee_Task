@@ -4,7 +4,7 @@ import { EmployeeTableComponent } from './Screens/employee-table/employee-table.
 import { EmployeeTodoComponent } from './Screens/employee-todo/employee-todo.component';
 const routes: Routes = [
   {
-    path: 'users',
+    path: '',
     component: EmployeeTableComponent
   },
   {
