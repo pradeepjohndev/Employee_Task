@@ -3,21 +3,22 @@
         <th cdk-header-cell *cdkHeaderCellDef>
             <span>Employee ID</span>
             <button mat-icon-button [matMenuTriggerFor]="idMenu">
-                <mat-icon>more_vert</mat-icon>
+                <mat-icon>swap_vert</mat-icon>
             </button>
         </th>
 
         <td cdk-cell *cdkCellDef="let employee">
             {{ employee.id }}
         </td>
-
     </ng-container>
 
     <ng-container cdkColumnDef="fullName">
         <th cdk-header-cell *cdkHeaderCellDef>
             <span>Full Name</span>
-            <button mat-icon-button [matMenuTriggerFor]="searchName">
-                <mat-icon>more_vert</mat-icon>
+            <button mat-icon-button
+                [matMenuTriggerFor]="searchName"
+                (menuOpened)="focusSearchInput()">
+                <mat-icon>sort_by_alpha</mat-icon>
             </button>
         </th>
         <td cdk-cell *cdkCellDef="let employee">{{ employee.firstName}}
@@ -47,7 +48,14 @@
 
     <ng-container cdkColumnDef="role">
         <th cdk-header-cell *cdkHeaderCellDef>Role</th>
-        <td cdk-cell *cdkCellDef="let employee">{{ employee.role }}</td>
+        <td cdk-cell *cdkCellDef="let employee" class="role-cell">
+            <span class="role-text">{{ employee.role }}</span>
+            <span class="action-buttons">
+                <button mat-icon-button
+                    (click)="showDialog(employee)"><mat-icon style="color: blue;">edit</mat-icon></button>
+                <button mat-icon-button (click)="DeleteEmp(employee.id)"><mat-icon style="color: red;">delete</mat-icon></button>
+            </span>
+        </td>
     </ng-container>
 
     <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
@@ -56,20 +64,23 @@
 
 <mat-menu #idMenu="matMenu">
     <button mat-menu-item (click)="ascending()">
-        <mat-icon>keyboard_arrow_down</mat-icon>
         <span>Ase</span>
     </button>
 
     <button mat-menu-item (click)="descending()">
-        <mat-icon>keyboard_arrow_up</mat-icon>
         <span>Dsec</span>
     </button>
 </mat-menu>
 
 <mat-menu #searchName="matMenu">
     <div mat-menu-item (click)="$event.stopPropagation()">
-        <input type="text"
-            placeholder="Search by name" [(ngModel)]="searchText"
+        <input
+            type="text"
+            #menuInput
+            class="search-input"
+            placeholder="Search by name"
+            [(ngModel)]="searchText"
             (input)="searchByName()" />
+        <mat-icon>search</mat-icon>
     </div>
 </mat-menu>
