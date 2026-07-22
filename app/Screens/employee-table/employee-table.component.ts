@@ -27,6 +27,9 @@ export class EmployeeTableComponent implements OnInit {
   isLoading: boolean = true;
   noResult: boolean = false;
 
+  onDelete: boolean = false;
+  currentUser: number = 0;
+
   constructor(private sharedservice: SharedServiceService, private dialog: MatDialog) { }
 
   ngOnInit() {
@@ -121,8 +124,24 @@ export class EmployeeTableComponent implements OnInit {
   }
 
   DeleteEmp(id: number) {
-    this.allEmployees = this.allEmployees.filter(emp => emp.id !== id);
-    this.searchByName();
+    this.sharedservice.deleteUser(id).subscribe({
+      next: (response) => {
+        const index = this.allEmployees.findIndex(emp => emp.id === id);
+        if (index !== -1) {
+          this.allEmployees = this.allEmployees.toSpliced(index, 1);
+        } this.searchByName();
+        this.onDelete = true;
+        this.currentUser = id
+        this.isLoading = true
+        setTimeout(() => {
+          this.onDelete = false;
+          this.isLoading = false;
+        }, 1000);
+      },
+      error: (error) => {
+        console.error('Delete failed', error);
+      }
+    });
   }
 
   reset() {
