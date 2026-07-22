@@ -6,16 +6,22 @@ body {
   height: 100%;
   margin: 0;
   overflow: hidden;
+  font-size: 14px;
 }
 
 body {
-  height: 100dvh;
+  height: 100%dvh;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 :root {
-  --primary-color: #1f96f4;
-  --secondary-color: #F2F2F2;
-  --font-family: "Roboto", sans-serif;
+  --app-primary-color: #1f96f4;
+  --app-gray-color: #f2f2f2;
+  --app-black-color: #000000;
+  --color-red: #e20512;
+  --color-black: #333333;
+  --color-green: #10b981;
 }
 
 * {

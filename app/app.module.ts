@@ -60,6 +60,7 @@ const globalRippleConfig: RippleGlobalOptions = {
     MatRippleModule,
     MatProgressSpinnerModule
   ],
+  // don't place it direcly since this is used as a modal popup
   entryComponents: [
     EditDialogComponent
   ],

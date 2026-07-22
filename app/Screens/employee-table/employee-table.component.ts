@@ -80,7 +80,7 @@ export class EmployeeTableComponent implements OnInit {
 
     if (!search) {
       this.employees = [...this.allEmployees];
-      this.noResult = true
+      this.noResult = false
       return;
     }
 
@@ -129,5 +129,10 @@ export class EmployeeTableComponent implements OnInit {
     this.searchText = '';
     this.searchByName();
     this.focusSearchInput();
+  }
+
+  close() {
+    this.searchText = '';
+    this.searchByName();
   }
 }

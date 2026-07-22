@@ -54,15 +54,18 @@
         <ng-container cdkColumnDef="role">
             <th cdk-header-cell *cdkHeaderCellDef>Role</th>
             <td cdk-cell *cdkCellDef="let employee" class="role-cell">
-                <span class="role-text">{{ employee.role }}</span>
-                <span class="action-buttons">
-                    <button mat-icon-button (click)="showDialog(employee)">
-                        <mat-icon style="color: blue;">edit</mat-icon>
-                    </button>
-                    <button mat-icon-button (click)="DeleteEmp(employee.id)">
-                        <mat-icon style="color: red;">delete</mat-icon>
-                    </button>
-                </span>
+                <article class="options">
+                    <span class="role-text">{{ employee.role }}</span>
+                    <span class="action-buttons">
+                        <button mat-icon-button (click)="showDialog(employee)">
+                            <mat-icon style="color: #8d99ae;">edit</mat-icon>
+                        </button>
+                        <button mat-icon-button
+                            (click)="DeleteEmp(employee.id)">
+                            <mat-icon style="color: #463f3a;">delete</mat-icon>
+                        </button>
+                    </span>
+                </article>
             </td>
         </ng-container>
 
@@ -76,7 +79,7 @@
 
     <mat-menu #idMenu="matMenu">
         <button mat-menu-item (click)="ascending()">
-            <span>Ase</span>
+            <span>Asc</span>
         </button>
 
         <button mat-menu-item (click)="descending()">
@@ -95,7 +98,7 @@
             <mat-icon>refresh</mat-icon>
             <span>Reset</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="close();">
             <mat-icon>cancel</mat-icon>
             <span>close</span>
         </button>
