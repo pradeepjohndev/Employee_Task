@@ -1,5 +1,5 @@
 import { SharedServiceService } from 'src/app/shared/shared-service.service';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { NgForm } from '@angular/forms';
 
@@ -12,6 +12,7 @@ export class EditDialogComponent {
   employee: any;
   mode: string;
 
+  //injection token 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<EditDialogComponent>,
     private SharedService: SharedServiceService) {
