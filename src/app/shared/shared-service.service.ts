@@ -13,7 +13,15 @@ export class SharedServiceService {
   constructor(private http: HttpClient) { }
 
   getUser() {
-    return this.http.get<any>('https://dummyjson.com/users');
+    return this.http.get<any>('https://dummyjson.com/users?limit=0');
+  }
+
+  deleteUser(id: number) {
+    return this.http.delete<any>(`https://dummyjson.com/users/${id}`);
+  }
+
+  updateUser(id: number, employee: any) {
+    return this.http.put<any>(`https://dummyjson.com/users/${id}`, employee);
   }
 
   addEmployee(employee: any) {

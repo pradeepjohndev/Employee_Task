@@ -93,3 +93,15 @@ input:focus {
 .delete-icon {
   color: red;
 }
+
+.deleted{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 250px;
+  padding: 15px;
+  background-color: var(--color-red);
+  color: white;
+  border-radius: 8px;
+  z-index: 9999;
+}
