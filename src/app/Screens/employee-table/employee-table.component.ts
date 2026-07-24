@@ -1,6 +1,6 @@
+import { DialogService } from './../../shared/dialog.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { SharedServiceService } from 'src/app/shared/shared-service.service';
-import { MatDialog } from '@angular/material/dialog';
 import { EditDialogComponent } from '../Components/edit-dialog/edit-dialog.component';
 @Component({
   selector: 'app-employee-table',
@@ -30,7 +30,8 @@ export class EmployeeTableComponent implements OnInit {
   onDelete: boolean = false;
   currentUser: number = 0;
 
-  constructor(private sharedservice: SharedServiceService, private dialog: MatDialog) { }
+  constructor(private sharedservice: SharedServiceService, private DialogService: DialogService
+  ) { }
 
   ngOnInit() {
     this.isLoading = true;
@@ -96,39 +97,53 @@ export class EmployeeTableComponent implements OnInit {
   }
 
   showDialog(employee: any) {
-    const dialogRef = this.dialog.open(EditDialogComponent, {
-      width: '500px',
-      data: {
-        mode: 'edit',
-        employee: {
-          ...employee,
-          address: {
-            ...employee.address
-          }
+    const dialogRef = this.DialogService.openEmployeeDialog(
+      'edit',
+      '500px',
+      {
+        ...employee,
+        address: {
+          ...employee.address
         }
       }
-    });
+    );
 
     dialogRef.afterClosed().subscribe(updatedEmployee => {
-      if (!updatedEmployee) {
-        return;
-      }
+      if (!updatedEmployee) { return; }
       const index = this.allEmployees.findIndex(emp => emp.id === updatedEmployee.id);
 
       if (index !== -1) {
         this.allEmployees[index] = updatedEmployee;
         this.allEmployees = [...this.allEmployees];
       }
-      this.searchByName()
+      this.searchByName();
     });
   }
 
-  DeleteEmp(id: number) {
+  DeleteEmp(employee: any) {
+    const dialogRef =
+      this.DialogService.openConfirmationDialog(
+        '500px',
+        {
+          title: 'Delete Employee',
+          message: `Delete ${employee.firstName} ${employee.lastName} with the ID ${employee.id}`
+        });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        return;
+      }
+      this.deleteEmployee(employee.id);
+    });
+  }
+
+  private deleteEmployee(id: number) {
     this.sharedservice.deleteUser(id).subscribe({
       next: (response) => {
         const index = this.allEmployees.findIndex(emp => emp.id === id);
         if (index !== -1) {
-          this.allEmployees = this.allEmployees.toSpliced(index, 1);
+          this.allEmployees.splice(index, 1);
+          this.allEmployees = [...this.allEmployees];
         } this.searchByName();
         this.onDelete = true;
         this.currentUser = id
