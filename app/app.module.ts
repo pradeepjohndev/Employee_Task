@@ -24,6 +24,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { EditDialogComponent } from './Screens/Components/edit-dialog/edit-dialog.component';
 import { MAT_RIPPLE_GLOBAL_OPTIONS, MatRippleModule, RippleGlobalOptions } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ConfirmationDialogComponent } from './Screens/Components/confirmation-dialog/confirmation-dialog.component';
 
 // disabled global ripple config because of container mismatch  
 const globalRippleConfig: RippleGlobalOptions = {
@@ -40,6 +41,7 @@ const globalRippleConfig: RippleGlobalOptions = {
     EmployeeTodoComponent,
     FooterComponent,
     EditDialogComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,7 +64,8 @@ const globalRippleConfig: RippleGlobalOptions = {
   ],
   // don't place it direcly since this is used as a modal popup
   entryComponents: [
-    EditDialogComponent
+    EditDialogComponent,
+    ConfirmationDialogComponent
   ],
   providers: [{ provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: globalRippleConfig }],
   bootstrap: [AppComponent]
