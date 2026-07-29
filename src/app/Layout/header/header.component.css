@@ -1,0 +1,57 @@
+.header-toolbar {
+  height: 64px;
+  background-color: var(--app-primary-color);
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.menu-btn {
+  color: white;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 500;
+  margin-left: 8px;
+  
+}
+
+.spacer {
+  flex: 1;
+}
+
+.add-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  height: 40px;
+
+  padding: 0 16px;
+
+  border: none;
+  border-radius: 6px;
+
+  background: white;
+  color: var(--app-primary-color);
+
+  font-size: 14px;
+  font-weight: 500;
+
+  transition: all 0.3s ease;
+}
+
+.add-btn:hover {
+  cursor: pointer;
+  transform: translateY(-1px);
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.add-btn mat-icon {
+  margin: 0;
+}

@@ -2,6 +2,7 @@ import { DialogService } from './../../shared/dialog.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { SharedServiceService } from 'src/app/shared/shared-service.service';
 import { EditDialogComponent } from '../Components/edit-dialog/edit-dialog.component';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 @Component({
   selector: 'app-employee-table',
   templateUrl: './employee-table.component.html',
@@ -10,6 +11,10 @@ import { EditDialogComponent } from '../Components/edit-dialog/edit-dialog.compo
 
 export class EmployeeTableComponent implements OnInit {
   @ViewChild('menuInput', { static: false }) menuInput!: ElementRef;
+
+  currentPage = 1;
+  itemsPerPage = 15;
+  maxSize = 10;
 
   displayedColumns: string[] = [
     'id',
@@ -24,44 +29,44 @@ export class EmployeeTableComponent implements OnInit {
   allEmployees: any[] = []; // local source of truth
   employees: any[] = [];  // table display value
   searchText: string = '';
-  isLoading: boolean = true;
   noResult: boolean = false;
 
   onDelete: boolean = false;
   currentUser: number = 0;
 
-  constructor(private sharedservice: SharedServiceService, private DialogService: DialogService
-  ) { }
+  constructor(private sharedservice: SharedServiceService,
+    private DialogService: DialogService,
+    private ngxLoader: NgxUiLoaderService) { }
 
   ngOnInit() {
-    this.isLoading = true;
-
     this.sharedservice.getUser().subscribe(response => {
+      this.ngxLoader.start();
       this.allEmployees = response.users;
       this.employees = [...this.allEmployees];
       this.sharedservice.setEmployees(this.allEmployees);
-      this.isLoading = false;
       /* setTimeout(() => {
         this.isLoading = false;
       }, 1000); */
       // for testing the loader
-
+      this.ngxLoader.stop();
       console.log("shallow copy", this.employees);
     }, error => {
       console.error('Failed to load employees', error);
-      this.isLoading = false;
     });
 
     this.sharedservice.employeeAdded$.subscribe(newEmployee => {
+      this.ngxLoader.start();
       const idExists = this.allEmployees.some(employee => employee.id === newEmployee.id);
 
       if (idExists) {
         alert('Employee ID already exists');
         return;
       }
+
       this.allEmployees.push(newEmployee);
       this.allEmployees = [...this.allEmployees];
       this.searchByName();
+      this.ngxLoader.stop();
     });
   }
 
@@ -81,6 +86,7 @@ export class EmployeeTableComponent implements OnInit {
 
   searchByName() {
     const search = this.searchText.trim().toLowerCase();
+    this.currentPage = 1;
 
     if (!search) {
       this.employees = [...this.allEmployees];
@@ -113,8 +119,10 @@ export class EmployeeTableComponent implements OnInit {
       const index = this.allEmployees.findIndex(emp => emp.id === updatedEmployee.id);
 
       if (index !== -1) {
+        this.ngxLoader.start()
         this.allEmployees[index] = updatedEmployee;
         this.allEmployees = [...this.allEmployees];
+        this.ngxLoader.stop()
       }
       this.searchByName();
     });
@@ -126,7 +134,8 @@ export class EmployeeTableComponent implements OnInit {
         '500px',
         {
           title: 'Delete Employee',
-          message: `Delete ${employee.firstName} ${employee.lastName} with the ID ${employee.id}`
+          message: `Are you sure you want to delete Delete ${employee.firstName} ${employee.lastName} with the ID ${employee.id}`,
+          isdeleteBtn: 'Delete',
         });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -140,6 +149,7 @@ export class EmployeeTableComponent implements OnInit {
   private deleteEmployee(id: number) {
     this.sharedservice.deleteUser(id).subscribe({
       next: (response) => {
+        console.log(response)
         const index = this.allEmployees.findIndex(emp => emp.id === id);
         if (index !== -1) {
           this.allEmployees.splice(index, 1);
@@ -147,11 +157,11 @@ export class EmployeeTableComponent implements OnInit {
         } this.searchByName();
         this.onDelete = true;
         this.currentUser = id
-        this.isLoading = true
+        this.ngxLoader.start()
         setTimeout(() => {
           this.onDelete = false;
-          this.isLoading = false;
         }, 1000);
+        this.ngxLoader.stop();
       },
       error: (error) => {
         console.error('Delete failed', error);
@@ -160,6 +170,7 @@ export class EmployeeTableComponent implements OnInit {
   }
 
   reset() {
+    this.currentPage = 1;
     this.searchText = '';
     this.searchByName();
     this.focusSearchInput();

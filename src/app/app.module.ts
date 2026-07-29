@@ -23,12 +23,21 @@ import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { EditDialogComponent } from './Screens/Components/edit-dialog/edit-dialog.component';
 import { MAT_RIPPLE_GLOBAL_OPTIONS, MatRippleModule, RippleGlobalOptions } from '@angular/material/core';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ConfirmationDialogComponent } from './Screens/Components/confirmation-dialog/confirmation-dialog.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxUiLoaderModule, NgxUiLoaderConfig, SPINNER, POSITION, PB_DIRECTION, NgxUiLoaderRouterModule, NgxUiLoaderHttpModule } from 'ngx-ui-loader';
+import { HeaderComponent } from './Layout/header/header.component';
+
 
 // disabled global ripple config because of container mismatch  
 const globalRippleConfig: RippleGlobalOptions = {
   disabled: true,
+};
+
+const ngxUiLoaderConfig: NgxUiLoaderConfig = {
+  fgsType: SPINNER.threeStrings,
+  fgsColor: 'rgba(12,80,219,0.98)',
+  fgsPosition: POSITION.centerCenter
 };
 
 @NgModule({
@@ -42,6 +51,7 @@ const globalRippleConfig: RippleGlobalOptions = {
     FooterComponent,
     EditDialogComponent,
     ConfirmationDialogComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,7 +70,9 @@ const globalRippleConfig: RippleGlobalOptions = {
     MatToolbarModule,
     MatDialogModule,
     MatRippleModule,
-    MatProgressSpinnerModule
+    NgxPaginationModule,
+    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
+    NgxUiLoaderHttpModule,
   ],
   // don't place it direcly since this is used as a modal popup
   entryComponents: [

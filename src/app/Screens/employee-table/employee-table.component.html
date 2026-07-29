@@ -1,9 +1,10 @@
-<div class="loader-container" *ngIf="isLoading" class="overlay">
+<!-- <div class="loader-container" *ngIf="isLoading" class="overlay">
     <mat-spinner diameter="50"></mat-spinner>
 </div>
-
-<div *ngIf="!isLoading">
-    <table cdk-table [dataSource]="employees">
+ -->
+<div>
+    <table cdk-table [dataSource]="employees | 
+    paginate: {id: 'employee-table', itemsPerPage: itemsPerPage, currentPage: currentPage}">
         <ng-container cdkColumnDef="id">
             <th cdk-header-cell *cdkHeaderCellDef>
                 <span>Employee ID</span>
@@ -73,6 +74,17 @@
         <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
+    <div class="d-flex justify-content-end mt-3 "
+        *ngIf="employees.length > itemsPerPage">
+        <pagination-controls id="employee-table"
+            (pageChange)="currentPage = $event" previousLabel="Previous"
+            nextLabel="Next" directionLinks="true"
+            autoHide="true"
+            responsive="true"
+            [maxSize]="maxSize">
+        </pagination-controls>
+    </div>
+
     <div *ngIf="noResult" class="no-result">
         No results found
     </div>
@@ -103,8 +115,8 @@
             <span>close</span>
         </button>
     </mat-menu>
-</div>
 
-<div *ngIf="onDelete" class="deleted">
-    <p>user deleted {{currentUser}}</p>
+    <div *ngIf="onDelete" class="deleted">
+        <p>user deleted {{currentUser}}</p>
+    </div>
 </div>

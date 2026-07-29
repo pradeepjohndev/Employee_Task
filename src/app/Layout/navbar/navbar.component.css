@@ -1,65 +1,64 @@
 .sidenav-container {
   height: 100dvh;
-  overflow: hidden;
 }
 
 .sidebar {
-  width: 20%dvh;
-  padding: 16px;
-  box-sizing: border-box;
-  background-color: var(--app-gray-color);
-}
-
-.logo {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-mat-nav-list a {
-  display: flex;
-  align-items: center;
-  border-radius: 20px;
-  background-color: rgb(211, 211, 211);
-}
-
-mat-nav-list a:hover {
-  background-color: var(--app-primary-color);
-  transition: all 0.3s ease-in-out;
-}
-
-mat-icon {
-  margin-right: 10px;
+  width: 250px;
+  background: #f5f5f5;
+  border-right: 1px solid #ddd;
+  padding-top: 20px;
 }
 
 .main-content {
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-mat-toolbar {
-  display: flex;
-  justify-content: space-between;
-  background-color: var(--app-primary-color);
-  color: white;
-  height: 5%;
-  z-index: 9999;
-}
-
-mat-toolbar button {
-  display: flex;
-  align-items: center;
-  padding: 5px;
-}
-
-mat-toolbar button:hover {
-  cursor: pointer;
-  background-color: var(--app-gray-color);
 }
 
 .content {
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+mat-nav-list {
+  padding: 0;
+}
+
+mat-nav-list a {
+  height: 48px;
+  margin: 6px 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+mat-nav-list a:hover {
+  background: rgba(25, 118, 210, 0.08);
+}
+
+mat-nav-list a:active{
+  background-color: var(--app-primary-color);
+}
+
+.active-link {
+  background: var(--app-primary-color);
+  color: white !important;
+}
+
+.active-link span {
+  color: white;
+}
+
+mat-nav-list a {
+  margin: 6px 10px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+mat-nav-list a:hover {
+  background-color: rgba(25, 118, 210, 0.1);
+}
+
+mat-nav-list a.active-link {
+  background-color: #1976d2;
+  color: white !important;
+  font-weight: 500;
 }

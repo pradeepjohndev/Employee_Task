@@ -1,9 +1,8 @@
 <section>
-    <h2 mat-dialog-title>Delete Employee</h2>
+    <h2 mat-dialog-title>{{data.title}}</h2>
 
     <mat-dialog-content>
         <p>
-            Are you sure you want to delete
             <strong>{{data.message}}</strong> ?
         </p>
     </mat-dialog-content>
@@ -11,6 +10,6 @@
 
     <mat-dialog-actions align="end">
         <button mat-button (click)="cancel()"> Cancel</button>
-        <button mat-raised-button color="warn" (click)="confirm()">Delete</button>
+        <button mat-raised-button color="warn" (click)="confirm()">{{data.isdeleteBtn}}</button>
     </mat-dialog-actions>
 </section>
